@@ -1,6 +1,5 @@
 import numpy as np
 import random
-import scipy
 from scipy.signal import *
 from pyrosetta import *
 
@@ -110,6 +109,120 @@ def add_crd_rst(pose, nres, std=1.0, tol=1.0):
 
     cset = rosetta.core.scoring.constraints.ConstraintSet()
     [cset.add_constraint(a) for a in rst]
+
+    # add to pose
+    constraints = rosetta.protocols.constraint_movers.ConstraintSetMover()
+    constraints.constraint_set(cset)
+    constraints.add_constraints(True)
+    constraints.apply(pose)
+
+def load_constraints(npz, angle_std, dist_std):
+    dist, omega, theta, phi = np.array(npz['dist_abs']), np.array(npz['omega_abs']), np.array(
+        npz['theta_abs']), np.array(npz['phi_abs'])
+
+    dist = dist.astype(np.float32)
+    omega = omega.astype(np.float32)
+    theta = theta.astype(np.float32)
+    phi = phi.astype(np.float32)
+
+    L = dist.shape[0]
+
+    # dictionary to store Rosetta restraints
+    rst = {'dist': [], 'omega': [], 'theta': [], 'phi': []}
+
+    ########################################################
+    # dist: 0..20A
+    ########################################################
+    # Used to filter other restraints
+    filter_i, filter_j = np.where(dist > 12)
+    filter_idx = [(i, j) for i, j in zip(filter_i, filter_j)]
+
+    dist = np.triu(dist, 1)
+    i, j = np.where(dist > 0)
+    dist = dist[i, j]
+
+    for a, b, mean in zip(i, j, dist):
+        if (a, b) in filter_idx:
+            continue
+        harmonic = rosetta.core.scoring.func.HarmonicFunc(mean, dist_std)
+        ida = rosetta.core.id.AtomID(5, a + 1)
+        idb = rosetta.core.id.AtomID(5, b + 1)
+        rst['dist'].append([a, b, rosetta.core.scoring.constraints.AtomPairConstraint(ida, idb, harmonic)])
+
+    # print("dist restraints:    %d"%(len(rst['dist'])))
+
+    ########################################################
+    # omega: -pi..pi
+    ########################################################
+    omega = np.triu(omega, 1)
+    # Use absolute value to not ignore negative values of omega
+    i, j = np.where(np.absolute(omega) > 0)
+    omega = omega[i, j]
+
+    for a, b, mean in zip(i, j, omega):
+        if (a, b) in filter_idx:
+            continue
+        harmonic = rosetta.core.scoring.func.CircularHarmonicFunc(mean, np.deg2rad(angle_std))
+        id1 = rosetta.core.id.AtomID(2, a + 1)  # CA-i
+        id2 = rosetta.core.id.AtomID(5, a + 1)  # CB-i
+        id3 = rosetta.core.id.AtomID(5, b + 1)  # CB-j
+        id4 = rosetta.core.id.AtomID(2, b + 1)  # CA-j
+        rst['omega'].append([a, b, rosetta.core.scoring.constraints.DihedralConstraint(id1, id2, id3, id4, harmonic)])
+    # print("omega restraints:    %d"%(len(rst['omega'])))
+
+    ########################################################
+    # theta: -pi..pi
+    ########################################################
+    for a in range(L):
+        for b in range(L):
+            if (a, b) in filter_idx:
+                continue
+            mean = theta[a][b]
+            harmonic = rosetta.core.scoring.func.CircularHarmonicFunc(mean, np.deg2rad(angle_std))
+            id1 = rosetta.core.id.AtomID(1, a + 1)  # N-i
+            id2 = rosetta.core.id.AtomID(2, a + 1)  # CA-i
+            id3 = rosetta.core.id.AtomID(5, a + 1)  # CB-i
+            id4 = rosetta.core.id.AtomID(5, b + 1)  # CB-j
+            rst['theta'].append(
+                [a, b, rosetta.core.scoring.constraints.DihedralConstraint(id1, id2, id3, id4, harmonic)])
+    # print("theta restraints:    %d"%(len(rst['theta'])))
+
+    ########################################################
+    # phi: 0..pi
+    ########################################################
+
+    for a in range(L):
+        for b in range(L):
+            if (a, b) in filter_idx:
+                continue
+            mean = phi[a][b]
+            harmonic = rosetta.core.scoring.func.HarmonicFunc(mean, np.deg2rad(angle_std))
+            id1 = rosetta.core.id.AtomID(2, a + 1)  # CA-i
+            id2 = rosetta.core.id.AtomID(5, a + 1)  # CB-i
+            id3 = rosetta.core.id.AtomID(5, b + 1)  # CB-j
+            rst['phi'].append([a, b, rosetta.core.scoring.constraints.AngleConstraint(id1, id2, id3, harmonic)])
+    # print("phi restraints:    %d"%(len(rst['phi'])))
+
+    return rst
+def add_rst(pose, rst, sep1, sep2):
+
+    # collect restraints
+    array = []
+    dist_r = [r for a,b,r in rst['dist'] if abs(a-b)>=sep1 and abs(a-b)<sep2]
+    omega_r = [r for a,b,r in rst['omega'] if abs(a-b)>=sep1 and abs(a-b)<sep2]
+    theta_r = [r for a,b,r in rst['theta'] if abs(a-b)>=sep1 and abs(a-b)<sep2]
+    phi_r   = [r for a,b,r in rst['phi'] if abs(a-b)>=sep1 and abs(a-b)<sep2]
+
+    array += dist_r
+    array += omega_r
+    array += theta_r
+    array += phi_r
+
+    if len(array) < 1:
+        return
+
+    cset = rosetta.core.scoring.constraints.ConstraintSet()
+    [cset.add_constraint(a) for a in array]
 
     # add to pose
     constraints = rosetta.protocols.constraint_movers.ConstraintSetMover()
