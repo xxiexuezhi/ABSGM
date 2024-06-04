@@ -9,7 +9,7 @@ Structure using Diffusion Models](https://icml-compbio.github.io/2023/papers/WCB
 
 We recommend using the conda environment supplied in this repository.
 
-1. Clone repository `git clone https://gitlab.com/mjslee0921/proteinsgm.git`
+1. Clone repository `git clone https://github.com/xxiexuezhi/ABSGM.git
 2. Install conda environment `create -f ab_env.yaml`
 3. Activate conda environment `conda activate ab_env`
 
