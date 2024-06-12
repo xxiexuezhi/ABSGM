@@ -45,6 +45,14 @@ To generate conditional samples, you have to first enocde epitope-antibody compl
 6D coordinate sampling should ~1 minute per sample on a normal GPU, and Rosetta minimization should take a maximum of 3 hour per iteration depending on the size of the selected H1,H2, or h3 region for design.
 
 
+ "python convert_6d_seq_to_pdb.py ../proteinsgm_singlecdr_inpaint_retrain/singlecdr_inpaint_h3/samples_${SLURM_ARRAY_TASK_ID}.pkl half_h3_single_heavy_benckmark_pdb/${files[${SLURM_ARRAY_TASK_ID}]}  ${SLURM_ARRAY_TASK_ID}  3"
+
+ * ../proteinsgm_singlecdr_inpaint_retrain/singlecdr_inpaint_h3/samples_${SLURM_ARRAY_TASK_ID}.pkl . the generated 6d files locations.
+ * half_h3_single_heavy_benckmark_pdb/${files[${SLURM_ARRAY_TASK_ID}]} Corrsponding pdb file for the antibody.
+ * ${SLURM_ARRAY_TASK_ID} the index of the generated struture inside the pkl file.
+ *  3. cdr h3 regions. 
+
+
 The Rosetta protocol saves all iterations and intermediate structures to subdirectories in `outPath`, including structures before FastDesign and before relaxation. The default number of iterations is 3, and the final minimized structure can be found under `outPath/.../best_run/final_structure.pdb`.
 
 
