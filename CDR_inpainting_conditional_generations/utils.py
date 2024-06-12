@@ -111,9 +111,7 @@ def selected_mask_batch2(batch, mask_info, config):
 
 mid_ptr = 64
 
-
-
-def selected_mask_batch3(batch, mask_info, config):
+def selected_mask_batch3_33333(batch, mask_info, config): # this one is not used due to the masking part is wrong. this one would mask into the regions where is padding. but we dont do it. 
     if "inpainting" not in config.model.condition:
         batch["mask_inpaint"] = None
         return batch
@@ -149,9 +147,9 @@ def selected_mask_batch3(batch, mask_info, config):
     return batch
 
 
-# the selected  mask is working only for proteinsgm inverse. so I will only mask seq chennels and let the model inpaint back the seq channels.
+mid_ptr = 64
 
-def selected_mask_batch4(batch, mask_info, config):
+def selected_mask_batch3(batch, mask_info, config):
     if "inpainting" not in config.model.condition:
         batch["mask_inpaint"] = None
         return batch
@@ -160,10 +158,17 @@ def selected_mask_batch4(batch, mask_info, config):
 
     mask = torch.zeros(B, N)
     seq_mask = torch.zeros(B,N,N).bool()
+    #change here to add the unpadded length
+    #length_lst = batch["aa"]
+    length_lst =  [len([a for a in i if a != "_"]) for i in batch["aa_str"]]  # get lengths without padding token
 
+    #
     ss_indices = mask_info
     #res_mask = mask_info.split(",")
     for idx in range(len(ss_indices)):
+        # new added
+       # l = len(length_lst[idx])
+
         if ss_indices[idx] == '': continue # no secondary structure annotation found
         ss_idx = ss_indices[idx].split(",")
         indices_for_dropout = [b for b in ss_idx]
@@ -172,19 +177,35 @@ def selected_mask_batch4(batch, mask_info, config):
         for r in indices_for_dropout:
             if ":" in r:
                 start_idx, end_idx = r.split(":")
-                #mask[idx, int(start_idx):int(end_idx)] = 1
+                mask[idx, int(start_idx):int(end_idx)] = 1
 
-                seq_mask[idx,:,mid_ptr-10:mid_ptr+10] = True # in dimetion B, N, N # mid point update into 90 instead of 64 due to the dimention changed.
+                seq_mask[idx,int(start_idx):int(end_idx),mid_ptr-10:mid_ptr+10] = True # in dimetion B, N, N # mid point update into 90 instead of 64 due to the dimention changed.
             else:
                 mask[idx,int(r)] = 1
 
     mask = torch.logical_or(mask.unsqueeze(-1), mask.unsqueeze(1)) # B, N -> B, N, N
+
+    #new added here.   
+    for idx in range(len(length_lst)):
+        l = length_lst[idx]
+        mask[idx,l:N,:] = False
+        mask[idx,:,l:N] = False
+
+
+
     #batch["mask_inpaint"] = mask
 
     #batch["seq_mask"] = seq_mask
     batch["mask_inpaint"] = mask.to(device=config.device, dtype=torch.bool)
     batch["seq_mask"] = seq_mask.to(device=config.device, dtype=torch.bool)
     return batch
+
+
+
+
+
+
+
 
 
 
