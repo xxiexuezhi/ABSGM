@@ -19,6 +19,8 @@ We recommend using the conda environment supplied in this repository.
 
 #### Conditional generation
 
+First, please cd into the "CDR_inpainting_conditional_generations directory".
+
 Conditional generation additionally requires the epitope-antibody complex with the designed CDR been masked out.
 
 To generate conditional samples, you have to first enocde epitope-antibody complex using the encoding file, then provide the encoded matrix incuding H1,H2, or H3 the regions to be masked during inference. Please noted, this information should be stored indside matrix as the "ss_helices: ".  For instance, to mask and re-generated H3 regions, you can run the following command:
@@ -37,10 +39,10 @@ To generate conditional samples, you have to first enocde epitope-antibody compl
   * --tag singlecdr_inpaint_h3 is the generaetd folder name. the code would create this folder under current directory and stored all the generated data inside.  
 
 
+ 
 
-The generated 6D coordinates can then be minimized using Rosetta in the same manner as unconditional samples.
 
-6D coordinate sampling should ~1 minute per sample on a normal GPU, and Rosetta minimization should take a maximum of 3 hour per iteration depending on the size of the selected region for design.
+6D coordinate sampling should ~1 minute per sample on a normal GPU, and Rosetta minimization should take a maximum of 3 hour per iteration depending on the size of the selected H1,H2, or h3 region for design.
 
 
 The Rosetta protocol saves all iterations and intermediate structures to subdirectories in `outPath`, including structures before FastDesign and before relaxation. The default number of iterations is 3, and the final minimized structure can be found under `outPath/.../best_run/final_structure.pdb`.
