@@ -23,7 +23,7 @@ First, please cd into the "CDR_inpainting_conditional_generations directory".
 
 Conditional generation additionally requires the epitope-antibody complex with the designed CDR been masked out.
 
-To generate conditional samples, you have to first enocde epitope-antibody complex using the encoding file, then provide the encoded matrix incuding H1,H2, or H3 the regions to be masked during inference. Please noted, this information should be stored indside matrix as the "ss_helices: ".  For instance, to mask and re-generated H3 regions, you can run the following command:
+To generate conditional samples, you have to first enocde epitope-antibody complex using the encoding file, then provide the encoded matrix incuding H1,H2, or H3 the regions to be masked during inference. For convenience, I made a pandas data frame stored all the related antigen information called . Please noted, this information should be stored indside matrix as the "ss_helices: ".  For instance, to mask and re-generated H3 regions, you can run the following command:
 
 
 'python sampling_6d.py ./configs/inpainting_ch6.yml ../saved_weights/h3_inpaint.pth --pkl proteindataset_benchmark_half_12testset_h3.pkl --chain A --index 0  --tag singlecdr_inpaint_h3'
@@ -49,8 +49,8 @@ To generate conditional samples, you have to first enocde epitope-antibody compl
 
  * ../proteinsgm_singlecdr_inpaint_retrain/singlecdr_inpaint_h3/samples_${SLURM_ARRAY_TASK_ID}.pkl . the generated 6d files locations.
  * half_h3_single_heavy_benckmark_pdb/${files[${SLURM_ARRAY_TASK_ID}]} Corrsponding pdb file for the antibody.
- * ${SLURM_ARRAY_TASK_ID} the index of the generated struture inside the pkl file.
- *  3. cdr h3 regions. 
+ * SLURM_ARRAY_TASK_ID the index of the generated struture inside the pkl file.
+ * 3. cdr h3 regions. 
 
 
 The Rosetta protocol saves all iterations and intermediate structures to subdirectories in `outPath`, including structures before FastDesign and before relaxation. The default number of iterations is 3, and the final minimized structure can be found under `outPath/.../best_run/final_structure.pdb`.
@@ -94,6 +94,20 @@ The training script can be found in `train.py`. For instance, to train an uncond
 `python train.py ./configs/cond_length.yml`
 
 Conditional models can be trained by replacing `./configs/cond_length.yml` with `./configs/cond_length_inpainting.yml`
+
+#### Conditional generation - single cdr inpinating.
+
+python single_cdr_train_cdr_ch6_with_epitope2.py  configs/inpainting_ch6.yml --pkl H_chain_only_mask_only_H${SLURM_ARRAY_TASK_ID}_protein_dataset_dataset3_l_with_epitope_match_cdr_4k_all_matching_info_add_after_masking_and_epitope_info_no_padding_midptr_64_Mar10_2023.pkl
+* configs/inpainting_ch6.yml   config file.
+* H_chain_only_mask_only_H${SLURM_ARRAY_TASK_ID}_protein_dataset_dataset3_l_with_epitope_match_cdr_4k_all_matching_info_add_after_masking_and_epitope_info_no_padding_midptr_64_Mar10_2023.pkl . training dataset.
+
+ Please see required gpu, cpu, memory a below:
+#SBATCH --gres=gpu:v100:1              # Number of GPU(s) per node
+#SBATCH --cpus-per-task=12       # CPU cores/threads
+#SBATCH --mem=60000M               # memory per node
+#SBATCH --time=0-23:05
+
+
 
 
 ### Reference
