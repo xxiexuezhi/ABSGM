@@ -22,7 +22,9 @@ We recommend using the conda environment supplied in this repository.
 The encdoed examples are uploaded. you could find from 
 
 H1 inpaint. [this link](https://drive.google.com/file/d/1lJqevpg83Ca6nnQhxPG7H0mTyNAY2BUS/view?usp=sharing)
+
 H2 inpaint.[this link](https://drive.google.com/file/d/1yjKVFozK5yQxAbxGR-bjiRfwIzfdkMGd/view?usp=sharing)
+
 H3 inpaint. [this link](https://drive.google.com/file/d/1ymDxLDU0pG2YHde4IL-Yus1zMe1urMIr/view?usp=sharing)
 
 First, please cd into the "CDR_inpainting_conditional_generations directory".
