@@ -49,9 +49,9 @@ The descriptions of each parameter are as below:
 
 The encdoed examples are uploaded. you could find from 
 
-* H1 inpaint examples. [this link]
-* H2 inpaint examples.[this link]
-* H3 inpaint examples. [this link]
+* H1 inpaint examples. [this link](https://drive.google.com/file/d/1ksyVIfcaU4I8szarevUzbw6y5uruwNYN/view?usp=sharing)
+* H2 inpaint examples.[this link](https://drive.google.com/file/d/1VDKn5UOvt0BzbQyCU0kR_EGty-D_MZ9X/view?usp=sharing)
+* H3 inpaint examples. [this link](https://drive.google.com/file/d/1YujEuHLLLnnKrcGn7GBy08stoBQkBnsf/view?usp=sharing)
 
 To encode your given antigen-antibody complex structures, please refer to the readme inside the CDR_inpainting_conditional_generations/encoding/ . 
 
