@@ -26,7 +26,11 @@ Generation of structures is achieved by first sampling 6D coordinates from the m
 
 ### 6d and sequence pairs genertions
 
-Pleese use python sampling_6d.py to generate 6d coodinates and sequences. For instance,  `python sampling_6d.py ./configs/inpainting_ch6.yml ../saved_weights/h3_inpaint.pth --pkl proteindataset_benchmark_half_12testset_h3.pkl --chain A --index 0  --tag singlecdr_inpaint_h3`. The descriptions of each parameter are as below:
+Pleese use python sampling_6d.py to generate 6d coodinates and sequences. For instance,  
+```
+python sampling_6d.py ./configs/inpainting_ch6.yml ../saved_weights/h3_inpaint.pth --pkl proteindataset_benchmark_half_12testset_h3.pkl --chain A --index 0  --tag singlecdr_inpaint_h3
+```
+The descriptions of each parameter are as below:
 
   * ./configs/inpainting_ch6.yml is the config files. containing hyperparamters like batch size, data dimensions etc.
   
