@@ -70,7 +70,11 @@ Conditional generation additionally requires the epitope-antibody complex with t
 ### 6d and sequence pairs to pdbs
 
 
- Pleese use python 'convert_6d_seq_to_pdb.py' to convert the 6d coodinates and sequnces pairs into the pdb uing Rosetta. For instance,  'python convert_6d_seq_to_pdb.py ../proteinsgm_singlecdr_inpaint_retrain/singlecdr_inpaint_h3/samples_${SLURM_ARRAY_TASK_ID}.pkl half_h3_single_heavy_benckmark_pdb/${files[${SLURM_ARRAY_TASK_ID}]}  ${SLURM_ARRAY_TASK_ID}  3'
+ Pleese use python 'convert_6d_seq_to_pdb.py' to convert the 6d coodinates and sequnces pairs into the pdb uing Rosetta. For instance,  
+ ```
+ python convert_6d_seq_to_pdb.py ../proteinsgm_singlecdr_inpaint_retrain/singlecdr_inpaint_h3/samples_${SLURM_ARRAY_TASK_ID}.pkl half_h3_single_heavy_benckmark_pdb/${files[${SLURM_ARRAY_TASK_ID}]}  ${SLURM_ARRAY_TASK_ID}  3
+```
+
 
  * ../proteinsgm_singlecdr_inpaint_retrain/singlecdr_inpaint_h3/samples_${SLURM_ARRAY_TASK_ID}.pkl . the generated 6d files locations.
  * half_h3_single_heavy_benckmark_pdb/${files[${SLURM_ARRAY_TASK_ID}]} Corrsponding pdb file for the antibody.
