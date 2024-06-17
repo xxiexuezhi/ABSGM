@@ -4,42 +4,29 @@
 
 
 
-## Antibody-SGM: Score-based generative modeling for *de novo* antibody heavychain design
+## Descriptions
 
-This repository contains the codebase for [Antibody-SGM: Antigen-Specific Joint Design of Antibody Sequence and
-Structure using Diffusion Models]
+Antibody-SGM is a score-based generative modeling for *de novo* antibody heavychain design. This repository contains the codebase for [Antibody-SGM: Antigen-Specific Joint Design of Antibody Sequence and Structure using Diffusion Models]
 
 
-### Installation
----
+## Installation
 
-We recommend using the conda environment supplied in this repository.
+To install AB-SGM and the necessary dependancies run the following commands, installation should take less than 15 minutes. We recommend using the conda environment supplied in this repository.
 
 1. Clone repository `git clone https://github.com/xxiexuezhi/ABSGM.git
 2. Install conda environment `create -f ab_env.yaml`
 3. Activate conda environment `conda activate ab_env`
+   
+To run AB-SGM, download and extract the model parameters,[Saved weights](https://drive.google.com/drive/folders/1w1yPn3rYz04p9eejsr15bJN6K7kVzSAg?usp=sharing)
 
 
-### Inference
----
+## Inference (Conditional generation)
 
-#### Conditional generation 
+Generation of structures is achieved by first sampling 6D coordinates from the model, and running Rosetta. 
 
-The encdoed examples are uploaded. you could find from 
+### 6d and sequence pairs genertions
 
-* H1 inpaint. [this link]
-* H2 inpaint.[this link]
-
-* H3 inpaint. [this link]
-
-First, please cd into the "CDR_inpainting_conditional_generations directory".
-
-Conditional generation additionally requires the epitope-antibody complex with the designed CDR been masked out.
-
-To generate conditional samples, you have to first enocde epitope-antibody complex using the encoding file, then provide the encoded matrix incuding H1,H2, or H3 the regions to be masked during inference. For convenience, I made a pandas data frame stored all the related antigen information called . Please noted, this information should be stored indside matrix as the "ss_helices: ".  For instance, to mask and re-generated H3 regions, you can run the following command:
-
-
-'python sampling_6d.py ./configs/inpainting_ch6.yml ../saved_weights/h3_inpaint.pth --pkl proteindataset_benchmark_half_12testset_h3.pkl --chain A --index 0  --tag singlecdr_inpaint_h3'
+Pleese use python sampling_6d.py to generate 6d coodinates and sequences. For instance,  'python sampling_6d.py ./configs/inpainting_ch6.yml ../saved_weights/h3_inpaint.pth --pkl proteindataset_benchmark_half_12testset_h3.pkl --chain A --index 0  --tag singlecdr_inpaint_h3'. The descriptions of each parameter are as below:
 
   * ./configs/inpainting_ch6.yml is the config files. containing hyperparamters like batch size, data dimensions etc.
   
@@ -52,13 +39,34 @@ To generate conditional samples, you have to first enocde epitope-antibody compl
   * --tag singlecdr_inpaint_h3 is the generaetd folder name. the code would create this folder under current directory and stored all the generated data inside.  
 
 
- 
+
+The encdoed examples are uploaded. you could find from 
+
+* H1 inpaint examples. [this link]
+* H2 inpaint examples.[this link]
+* H3 inpaint examples. [this link]
+
+To encode your given antigen-antibody complex structures, please refer to the readme inside the CDR_inpainting_conditional_generations/encoding/ . 
 
 
 6D coordinate sampling should ~1 minute per sample on a normal GPU, and Rosetta minimization should take a maximum of 3 hour per iteration depending on the size of the selected H1,H2, or h3 region for design.
 
 
- "python convert_6d_seq_to_pdb.py ../proteinsgm_singlecdr_inpaint_retrain/singlecdr_inpaint_h3/samples_${SLURM_ARRAY_TASK_ID}.pkl half_h3_single_heavy_benckmark_pdb/${files[${SLURM_ARRAY_TASK_ID}]}  ${SLURM_ARRAY_TASK_ID}  3"
+To generate conditional samples, you have to first enocde epitope-antibody complex using the encoding file, then provide the encoded matrix incuding H1,H2, or H3 the regions to be masked during inference. For convenience, I made a pandas data frame stored all the related antigen information called . Please noted, this information should be stored indside matrix as the "ss_helices: ".  For instance, to mask and re-generated H3 regions, you can run the following command:
+
+First, please cd into the "CDR_inpainting_conditional_generations directory".
+
+
+
+
+Conditional generation additionally requires the epitope-antibody complex with the designed CDR been masked out.
+
+
+
+### 6d and sequence pairs to pdbs
+
+
+ Pleese use python 'convert_6d_seq_to_pdb.py' to convert the 6d coodinates and sequnces pairs into the pdb uing Rosetta. For instance,  'python convert_6d_seq_to_pdb.py ../proteinsgm_singlecdr_inpaint_retrain/singlecdr_inpaint_h3/samples_${SLURM_ARRAY_TASK_ID}.pkl half_h3_single_heavy_benckmark_pdb/${files[${SLURM_ARRAY_TASK_ID}]}  ${SLURM_ARRAY_TASK_ID}  3'
 
  * ../proteinsgm_singlecdr_inpaint_retrain/singlecdr_inpaint_h3/samples_${SLURM_ARRAY_TASK_ID}.pkl . the generated 6d files locations.
  * half_h3_single_heavy_benckmark_pdb/${files[${SLURM_ARRAY_TASK_ID}]} Corrsponding pdb file for the antibody.
@@ -96,7 +104,7 @@ We are using a GPU for 6D coordinate sampling, and CPU batch processing for Rose
 
 
 
-### Training
+## Training
 ---
 Raw antigen-antibody complex dataset for CDR condtional generations can be downloaded [here] (https://opig.stats.ox.ac.uk/webapps/newsabdab/sabdab/archive/all/)
 
