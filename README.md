@@ -13,7 +13,7 @@ Antibody-SGM is a score-based generative modeling for *de novo* antibody heavych
 
 To install AB-SGM and the necessary dependancies run the following commands, installation should take less than 15 minutes. We recommend using the conda environment supplied in this repository.
 
-1. Clone repository ` git clone https://github.com/xxiexuezhi/ABSGM.git ' or download the zip files.
+1. Clone repository ` git clone https://github.com/xxiexuezhi/ABSGM.git ' or download the zip files and extract all.
 2. Install conda environment `create -f ab_env.yaml`
 3. Activate conda environment `conda activate ab_env`
    
@@ -22,7 +22,7 @@ To run AB-SGM, download and extract the model parameters,[Saved weights](https:/
 
 ## Inference (Conditional generation)
 
-Generation of structures is achieved by first sampling 6D coordinates from the model, and running Rosetta. 
+All related codes are in CDR_inpainting_conditional_generations directory. Generation of structures is achieved by first sampling 6D coordinates from the model, and running Rosetta. 
 
 ### 6d and sequence pairs genertions
 
