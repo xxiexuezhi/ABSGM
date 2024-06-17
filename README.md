@@ -19,6 +19,9 @@ To install AB-SGM and the necessary dependancies run the following commands, ins
    
 To run AB-SGM, download and extract the model parameters,[Saved weights](https://drive.google.com/drive/folders/1w1yPn3rYz04p9eejsr15bJN6K7kVzSAg?usp=sharing)
 
+The code is tested on Python 3.8.17 and it needs pytorch gpu version for both training and sampling.  
+
+
 
 ## Inference (Conditional generation)
 
