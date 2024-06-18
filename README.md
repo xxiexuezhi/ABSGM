@@ -87,37 +87,12 @@ The Rosetta protocol saves all iterations and intermediate structures to subdire
 
 
 
-#### Unconditional generation
 
-Unconditional generation of structures is achieved by first sampling 6D coordinates and sequences from the model, and running Rosetta.
-
-`sampling_6d.py` is used to sample 6D coordinates given a model checkpoint. For instance,
-
-`python sampling_6d.py ./configs/cond_length.yml ./checkpoints/cond_length.pth`
-
-This will first sample random lengths. If you want to generate a specific length, you can set `--select_length True length_index 1`, which will generate a protein of length 40 (we use 1-indexing here)
-
-To generate structures from 6D coordinates, please refer to `sampling_rosetta.py`. For instance,
-
-`python sampling_rosetta example/sample.pkl --index 1`
-
-This will read the first sample (1-indexing) and run <tt>MinMover, FastDesign,</tt> and <tt>FastRelax</tt> and save all intermediate structures.
-
-You can exclude any of the Rosetta minimization steps (except <tt>MinMover</tt>) with the flags `--fastrelax False --fastdesign False`.
-
-We are using a GPU for 6D coordinate sampling, and CPU batch processing for Rosetta since Rosetta protocols can only use a single core per job. In our case we used a single NVIDIA V100 for training and inference, and 2 core CPU/8GB RAM per Rosetta job.
-
-
-
-
-
-
-
-## Training
+## Dataset 
 ---
 Raw antigen-antibody complex dataset for CDR condtional generations can be downloaded [here] (https://opig.stats.ox.ac.uk/webapps/newsabdab/sabdab/archive/all/)
 
-Once the files have been extracted, you must change `data.dataset_path` in the configuration file to the correct path containing the training data.
+The 'sabdab_downloader.py' is also provided for downloading. 
 
 The training script can be found in `train.py`. For instance, to train an unconditional model (conditioned just on length), run the following command:
 
