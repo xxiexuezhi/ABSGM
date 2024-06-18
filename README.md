@@ -133,11 +133,11 @@ python single_cdr_train_cdr_ch6_with_epitope2.py  configs/inpainting_ch6.yml --p
 
 '''
 
-#Please see required gpu, cpu, memory a below:
-#SBATCH --gres=gpu:v100:1              # Number of GPU(s) per node
-#SBATCH --cpus-per-task=12       # CPU cores/threads
-#SBATCH --mem=60000M               # memory per node
-#SBATCH --time=0-23:05
+#Please see required gpu, cpu, memory a below:  
+#SBATCH --gres=gpu:v100:1              # Number of GPU(s) per node  
+#SBATCH --cpus-per-task=12       # CPU cores/threads  
+#SBATCH --mem=60000M               # memory per node  
+#SBATCH --time=0-23:05  
 
 '''
 
