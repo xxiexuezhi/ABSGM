@@ -90,15 +90,12 @@ The Rosetta protocol saves all iterations and intermediate structures to subdire
 
 ## Dataset 
 ---
-Raw antigen-antibody complex dataset for CDR condtional generations can be downloaded [here] (https://opig.stats.ox.ac.uk/webapps/newsabdab/sabdab/archive/all/)
+Raw antigen-antibody complex dataset for CDR condtional generations can be downloaded [here](https://opig.stats.ox.ac.uk/webapps/newsabdab/sabdab/archive/all/)
 
 The 'sabdab_downloader.py' is also provided for downloading. 
 
-The training script can be found in `train.py`. For instance, to train an unconditional model (conditioned just on length), run the following command:
+Please follow the "encoding_reurn_read_from_df_epitopes.ipynb" notebook regarding the encoding process. And save the encoded files as the pickle file. 
 
-`python train.py ./configs/cond_length.yml`
-
-Conditional models can be trained by replacing `./configs/cond_length.yml` with `./configs/cond_length_inpainting.yml`
 
 ### Conditional generation training (single cdr inpinating).
 ```
