@@ -126,14 +126,14 @@ The training script can be found in `train.py`. For instance, to train an uncond
 Conditional models can be trained by replacing `./configs/cond_length.yml` with `./configs/cond_length_inpainting.yml`
 
 ### Conditional generation training (single cdr inpinating).
-'''
+```
 python single_cdr_train_cdr_ch6_with_epitope2.py  configs/inpainting_ch6.yml --pkl H_chain_only_mask_only_H${SLURM_ARRAY_TASK_ID}_protein_dataset_dataset3_l_with_epitope_match_cdr_4k_all_matching_info_add_after_masking_and_epitope_info_no_padding_midptr_64_Mar10_2023.pkl
-'''
+```
 
 * configs/inpainting_ch6.yml   config file.
 * H_chain_only_mask_only_H${SLURM_ARRAY_TASK_ID}_protein_dataset_dataset3_l_with_epitope_match_cdr_4k_all_matching_info_add_after_masking_and_epitope_info_no_padding_midptr_64_Mar10_2023.pkl . training dataset.
 
-'''
+```
 
 #Please see required gpu, cpu, memory a below:  
 #SBATCH --gres=gpu:v100:1              # Number of GPU(s) per node  
@@ -141,7 +141,7 @@ python single_cdr_train_cdr_ch6_with_epitope2.py  configs/inpainting_ch6.yml --p
 #SBATCH --mem=60000M               # memory per node  
 #SBATCH --time=0-23:05  
 
-'''
+```
 
 
 
