@@ -19,7 +19,7 @@ To install AB-SGM and the necessary dependancies run the following commands, ins
    
 To run AB-SGM, download and extract the model parameters,[Saved weights](https://drive.google.com/drive/folders/1w1yPn3rYz04p9eejsr15bJN6K7kVzSAg?usp=sharing)
 
-The code is tested on Python 3.8.17 and it needs pytorch gpu version for both training and sampling.  
+The code is tested on Python 3.8.17 and it needs pytorch gpu version for both training and sampling. We are using a GPU for model training and 6D coordinate sampling, and CPU batch processing for Rosetta. More specifically, we used a single NVIDIA V100  for training and inference, and at least 2 core CPU/8GB RAM per Rosetta job. Please refer to the shell script inside github for detailed configurations.
 
 
 
@@ -49,9 +49,9 @@ The descriptions of each parameter are as below:
 
 The encdoed examples are uploaded. you could find from 
 
-* H1 inpaint examples. [this link](https://drive.google.com/file/d/1ksyVIfcaU4I8szarevUzbw6y5uruwNYN/view?usp=sharing)
-* H2 inpaint examples.[this link](https://drive.google.com/file/d/1VDKn5UOvt0BzbQyCU0kR_EGty-D_MZ9X/view?usp=sharing)
-* H3 inpaint examples. [this link](https://drive.google.com/file/d/1YujEuHLLLnnKrcGn7GBy08stoBQkBnsf/view?usp=sharing)
+* H1 inpaint encoded examples. [this link](https://drive.google.com/file/d/1ksyVIfcaU4I8szarevUzbw6y5uruwNYN/view?usp=sharing)
+* H2 inpaint encoded examples.[this link](https://drive.google.com/file/d/1VDKn5UOvt0BzbQyCU0kR_EGty-D_MZ9X/view?usp=sharing)
+* H3 inpaint encoded examples. [this link](https://drive.google.com/file/d/1YujEuHLLLnnKrcGn7GBy08stoBQkBnsf/view?usp=sharing)
 
 To encode your given antigen-antibody complex structures, please refer to the readme inside the CDR_inpainting_conditional_generations/encoding/ . 
 
@@ -62,8 +62,6 @@ To encode your given antigen-antibody complex structures, please refer to the re
 To generate conditional samples, you have to first enocde epitope-antibody complex using the encoding file, then provide the encoded matrix incuding H1,H2, or H3 the regions to be masked during inference. For convenience, I made a pandas data frame stored all the related antigen information called . Please noted, this information should be stored indside matrix as the "ss_helices: ".  For instance, to mask and re-generated H3 regions, you can run the following command:
 
 First, please cd into the "CDR_inpainting_conditional_generations directory".
-
-
 
 
 Conditional generation additionally requires the epitope-antibody complex with the designed CDR been masked out.
