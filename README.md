@@ -94,7 +94,8 @@ Raw antigen-antibody complex dataset for CDR condtional generations can be downl
 
 The 'sabdab_downloader.py' is also provided for downloading. 
 
-Please follow the "encoding_reurn_read_from_df_epitopes.ipynb" notebook regarding the encoding process. And save the encoded files as the pickle file for training. 
+
+The encoded dataet for antigen-antibody complex could be found here.
 
 
 ### Conditional generation training (single cdr inpinating).
