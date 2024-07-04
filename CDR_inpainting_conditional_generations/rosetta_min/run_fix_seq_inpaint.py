@@ -39,7 +39,7 @@ import matplotlib.pyplot as plt
 import math
 import gemmi
 import py3Dmol
-from datasets import get_6d_from_pdb
+#from datasets import get_6d_from_pdb
 
 from rosetta_min.utils import *
 from pyrosetta import *
