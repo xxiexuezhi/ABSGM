@@ -12,5 +12,5 @@ module load cuda
 
 for i in {1,2,3}
 do
-	python sampling_6d.py ./configs/inpainting_ch6.yml ../saved_weights/h${i}_inpaint.pth --pkl proteindataset_benchmark_half_12testset_h${i}.pkl --chain A --index ${SLURM_ARRAY_TASK_ID}  --tag singlecdr_inpaint_h${i}_Jun_2024_fixed_padding
+	python sampling_6d.py ./configs/inpainting_ch6.yml ../saved_weights/h${i}_inpaint.pth --pkl proteindataset_example_singlecdr_inpaint_h${i}_6nn3_6nmv_6hga_1i9r.pkl --chain A --index ${SLURM_ARRAY_TASK_ID}  --tag singlecdr_inpaint_h${i}_Jun_2024_fixed_padding
 done  
