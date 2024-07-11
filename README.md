@@ -31,7 +31,7 @@ All related codes are in CDR_inpainting_conditional_generations directory. Gener
 
 Pleese use python sampling_6d.py to generate 6d coodinates and sequences. For instance,  
 ```
-python sampling_6d.py ./configs/inpainting_ch6.yml ../saved_weights/h3_inpaint.pth --pkl proteindataset_benchmark_half_12testset_h3.pkl --chain A --index 0  --tag singlecdr_inpaint_h3
+python sampling_6d.py ./configs/inpainting_ch6.yml ../saved_weights/h3_inpaint.pth --pkl proteindataset_example_singlecdr_inpaint_h3_6nn3_6nmv_6hga_1i9r.pkl --chain A --index 0  --tag singlecdr_inpaint_h3
 ```
 The descriptions of each parameter are as below:
 
@@ -39,9 +39,9 @@ The descriptions of each parameter are as below:
   
   * ../saved_weights/h3_inpaint.pth  This is to load the saved weight. 
   
-  * --pkl proteindataset_benchmark_half_12testset_h3.pkl is the pickle file contationing the all encoded data with H3 regions indicated to be masked out. 
+  * --pkl proteindataset_example_singlecdr_inpaint_h3_6nn3_6nmv_6hga_1i9r.pkl is the pickle file contationing the all encoded data with H3 regions indicated to be masked out. 
 
-  * --index 0 refers to the index number inside the proteindataset_benchmark_half_12testset_h3.pkl to generated. this index number would match the generated file number. for example, the generated file is named as samples_index.pkl.
+  * --index 0 refers to the index number inside the proteindataset_example_singlecdr_inpaint_h3_6nn3_6nmv_6hga_1i9r.pkl to generated. this index number would match the generated file number. for example, the generated file is named as samples_index.pkl.
 
   * --tag singlecdr_inpaint_h3 is the generaetd folder name. the code would create this folder under current directory and stored all the generated data inside.  
 
