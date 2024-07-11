@@ -5,7 +5,7 @@
 #SBATCH --mem=50000M               # memory per node
 #SBATCH --time=0-23:05
 #SBATCH --output=./slurm_f/xxie92-%A_%a.out
-#SBATCH --array=0-11 # job array index
+#SBATCH --array=0-3 # job array index
 
 
 module load cuda
