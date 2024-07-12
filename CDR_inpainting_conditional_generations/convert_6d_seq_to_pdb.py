@@ -170,8 +170,8 @@ sample_index = int(sys.argv[3])
 g_all_for_inpaint(f_sample_pkl,ref_pdb_name,sample_index)
 
 #g_all_for_inpaint(index)
-
-(base) [xxie92@beluga2 6d_to_pdb_inpaint]$ cat rosetta_do_for_inpaint.py 
+'''
+#(base) [xxie92@beluga2 6d_to_pdb_inpaint]$ cat rosetta_do_for_inpaint.py 
 import sys,json,math,os
 import tempfile
 import numpy as np
@@ -502,3 +502,4 @@ g_all_for_inpaint(f_sample_pkl,ref_pdb_name,sample_index)
 
 #g_all_for_inpaint(index)
 
+'''
