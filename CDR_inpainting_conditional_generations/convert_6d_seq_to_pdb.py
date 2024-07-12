@@ -1,4 +1,4 @@
-  import numpy as np
+import numpy as np
 
 def one_hot_decode(seq):
     alphabet = "ARNDCEQGHILKMFPSTWYV"
