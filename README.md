@@ -31,7 +31,7 @@ All related codes are in CDR_inpainting_conditional_generations directory. Gener
 
 Pleese use python sampling_6d.py to generate 6d coodinates and sequences. For instance,  
 ```
-python sampling_6d.py ./configs/inpainting_ch6.yml ../saved_weights/h3_inpaint.pth --pkl proteindataset_example_singlecdr_inpaint_h3_6nn3_6nmv_6hga_1i9r.pkl --chain A --index 0  --tag singlecdr_inpaint_h3
+python sampling_6d.py ./configs/inpainting_ch6.yml ../saved_weights/h3_inpaint.pth --pkl proteindataset_example_singlecdr_inpaint_h3_6nmv_6hga_1i9r.pkl --chain A --index 0  --tag singlecdr_inpaint_h3
 ```
 The descriptions of each parameter are as below:
 
@@ -39,19 +39,19 @@ The descriptions of each parameter are as below:
   
   * ../saved_weights/h3_inpaint.pth  This is to load the saved weight. 
   
-  * --pkl proteindataset_example_singlecdr_inpaint_h3_6nn3_6nmv_6hga_1i9r.pkl is the pickle file contationing the all encoded data with H3 regions indicated to be masked out. 
+  * --pkl proteindataset_example_singlecdr_inpaint_h3_6nmv_6hga_1i9r.pkl is the pickle file contationing the all encoded data with H3 regions indicated to be masked out. 
 
-  * --index 0 refers to the index number inside the proteindataset_example_singlecdr_inpaint_h3_6nn3_6nmv_6hga_1i9r.pkl to generated. this index number would match the generated file number. for example, the generated file is named as samples_index.pkl.
+  * --index 0 refers to the index number inside the proteindataset_example_singlecdr_inpaint_h3_6nmv_6hga_1i9r.pkl to generated. this index number would match the generated file number. for example, the generated file is named as samples_index.pkl.
 
   * --tag singlecdr_inpaint_h3 is the generaetd folder name. the code would create this folder under current directory and stored all the generated data inside.  
 
 
 
-The encdoed examples are uploaded. you could find from 
+The encdoed examples (pdb id: 6nmv, 6hga, 1i9r) are uploaded. you could find from 
 
-* H1 inpaint encoded examples. [this link](https://drive.google.com/file/d/1ksyVIfcaU4I8szarevUzbw6y5uruwNYN/view?usp=sharing)
-* H2 inpaint encoded examples.[this link](https://drive.google.com/file/d/1VDKn5UOvt0BzbQyCU0kR_EGty-D_MZ9X/view?usp=sharing)
-* H3 inpaint encoded examples. [this link](https://drive.google.com/file/d/1YujEuHLLLnnKrcGn7GBy08stoBQkBnsf/view?usp=sharing)
+* H1 inpaint encoded examples. [this link](https://drive.google.com/file/d/1CrvTYp0YYwrstxpf-yIi3dwyE3Ff-3pd/view?usp=sharing)
+* H2 inpaint encoded examples.[this link](https://drive.google.com/file/d/1yI8h2cghVjszUH3E5YU8mEblCVtqGR9w/view?usp=sharing)
+* H3 inpaint encoded examples. [this link](https://drive.google.com/file/d/120QGm0jyhFzulqILnAWIB9dA6zthHAbn/view?usp=sharing)
 
 To encode your given antigen-antibody complex structures, please refer to the readme inside the CDR_inpainting_conditional_generations/encoding/ . 
 
@@ -73,12 +73,12 @@ Conditional generation additionally requires the epitope-antibody complex with t
 
  Pleese use python 'convert_6d_seq_to_pdb.py' to convert the 6d coodinates and sequnces pairs into the pdb uing Rosetta. For instance,  
  ```
- python convert_6d_seq_to_pdb.py ../proteinsgm_singlecdr_inpaint_retrain/singlecdr_inpaint_h3/samples_${SLURM_ARRAY_TASK_ID}.pkl half_h3_single_heavy_benckmark_pdb/${files[${SLURM_ARRAY_TASK_ID}]}  ${SLURM_ARRAY_TASK_ID}  3
+ python convert_6d_seq_to_pdb.py ../proteinsgm_singlecdr_inpaint_retrain/singlecdr_inpaint_h3/samples_${SLURM_ARRAY_TASK_ID}.pkl single_hv_example_pdb/${files[${SLURM_ARRAY_TASK_ID}]}  ${SLURM_ARRAY_TASK_ID}  3
 ```
 
 
  * ../proteinsgm_singlecdr_inpaint_retrain/singlecdr_inpaint_h3/samples_${SLURM_ARRAY_TASK_ID}.pkl . the generated 6d files locations.
- * half_h3_single_heavy_benckmark_pdb/${files[${SLURM_ARRAY_TASK_ID}]} Corrsponding pdb file for the antibody.
+ * single_hv_example_pdb/${files[${SLURM_ARRAY_TASK_ID}]} Corrsponding pdb file for the antibody.
  * SLURM_ARRAY_TASK_ID the index of the generated struture inside the pkl file.
  * 3. cdr h3 regions. 
 
