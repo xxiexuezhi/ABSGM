@@ -1,3 +1,4 @@
-1. For quick encoding, please refer to encoding_reurn_read_from_df_epitopes.ipynb  I have pre-compute and saved the epitope reidues a df_epitopes...pkl.It should cover most of pdb id. 
+1. For quick encoding, please refer to encoding_reurn_read_from_df_epitopes.ipynb  I have pre-compute and saved the epitope reidues a df_epitopes...pkl.
+It should cover most of pdb id. It would read the saved epitotpe info and combine with the HVV to get the encoded file.  
 2. To generate the epitope information, please check the file ...
 
