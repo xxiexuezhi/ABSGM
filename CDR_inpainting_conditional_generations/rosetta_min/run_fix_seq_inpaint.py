@@ -284,7 +284,7 @@ def run_minimization(
 
         #indices_to_design = [str(i+1) for i,c in enumerate(seq) if c == "_"]
         #indices_to_design = ['100', '101', '102', '103', '104', '105', '106', '107', '108', '109']
-        indices_to_design = [str(k) for k in list(range(start_indice,end_indice))]
+        indices_to_design = [str(k+1) for k in list(range(start_indice,end_indice))]
         #print(indices_to_design)
 #https://graylab.jhu.edu/PyRosetta.documentation/pyrosetta.toolbox.mutants.html
         for indice in indices_to_design:
@@ -315,7 +315,7 @@ def run_minimization(
 
     Emin = 999999
 
-    for run in range(10):
+    for run in range(30):
         # define repeat_mover here!! (update vdw weights: weak (1.0) -> strong (10.0)
         sf.set_weight(rosetta.core.scoring.vdw, vdw_weight.setdefault(run, 10.0))
         sf.set_weight(rosetta.core.scoring.atom_pair_constraint, rsr_dist_weight.setdefault(run, 1.0))
