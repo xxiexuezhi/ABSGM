@@ -284,11 +284,11 @@ def run_minimization(
 
         #indices_to_design = [str(i+1) for i,c in enumerate(seq) if c == "_"]
         #indices_to_design = ['100', '101', '102', '103', '104', '105', '106', '107', '108', '109']
-        indices_to_design = [str(k) for k in list(range(start_indice,end_indice))]
+        indices_to_design = [str(k+1) for k in list(range(start_indice,end_indice))]
         #print(indices_to_design)
 #https://graylab.jhu.edu/PyRosetta.documentation/pyrosetta.toolbox.mutants.html
         for indice in indices_to_design:
-            mutate_residue(pose0,int(indice),seq[int(indice)])
+            mutate_residue(pose0,int(indice),seq[int(indice)-1])
 
 
 
