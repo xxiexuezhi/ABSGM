@@ -62,12 +62,7 @@ The descriptions of each parameter are as below:
 6D coordinate sampling should ~1 minute per sample on a normal GPU, and Rosetta minimization should take a maximum of 3 hour per iteration depending on the size of the selected H1,H2, or h3 region for design.
 
 
-To generate conditional samples, you have to first enocde epitope-antibody complex using the encoding file, then provide the encoded matrix incuding H1,H2, or H3 the regions to be masked during inference. For convenience, I made a pandas data frame stored all the related antigen information called . Please noted, this information should be stored indside matrix as the "ss_helices: ".  For instance, to mask and re-generated H3 regions, you can run the following command:
 
-First, please cd into the "CDR_inpainting_conditional_generations directory".
-
-
-Conditional generation additionally requires the epitope-antibody complex with the designed CDR been masked out.
 
 
 
