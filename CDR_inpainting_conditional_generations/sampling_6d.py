@@ -41,7 +41,7 @@ def main():
         config = EasyDict(yaml.safe_load(f))
 
     config.device = args.device
-    workdir = Path("sampling", "coords_6d","mutiple_cdr", Path(args.config).stem, Path(args.checkpoint).stem, args.tag)
+    workdir = Path(args.tag)
 
     # Initialize model.
     score_model = get_model(config)
