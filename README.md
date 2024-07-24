@@ -99,14 +99,8 @@ The 'sabdab_downloader.py' is also provided for downloading.
 
 ### Reference
 ---
-Antibody-SGM: Antigen-Specific Joint Design of Antibody Sequence and Structure using Diffusion Models
+Antibody-SGM (to be updated)
 
-
-
-# Set up Env
-Install conda environment conda env create -f ab_env.yaml
-
-Activate conda environment conda activate ab_env
 
 # Saved weights 
 Saved weights could be access here: https://drive.google.com/drive/folders/1w1yPn3rYz04p9eejsr15bJN6K7kVzSAg?usp=sharing
