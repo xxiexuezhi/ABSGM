@@ -86,42 +86,47 @@ The descriptions of each parameter are as below:
 
 
 
+
+
 ### 6d and sequence pairs to pdbs
 
 
- Pleese use python 'convert_6d_seq_to_pdb.py' to convert the 6d coodinates and sequnces pairs into the pdb uing PyRosetta. Please refer to h3_shell_job_6d_to_pdb.sh for more deitals. For instance, 
+
+
+ Please use python 'convert_6d_seq_to_pdb.py' to convert the 6d coordinates and sequence pairs into the pdb using PyRosetta. Please refer to h3_shell_job_6d_to_pdb.sh for more details. For instance, 
+
 
  
  ```
 
+
 python convert_6d_seq_to_pdb.py singlecdr_inpaint_h3_Jun_2024_fixed_padding/samples_${SLURM_ARRAY_TASK_ID}.pkl single_hv_example_pdb/${files[${SLURM_ARRAY_TASK_ID}]}  ${SLURM_ARRAY_TASK_ID}  3
+
+
 
 
 ```
 
 
+
+
 * samples_${SLURM_ARRAY_TASK_ID}.pkl is the 6d data generated with the previous shell script. 
 single_hv_example_pdb/${files[${SLURM_ARRAY_TASK_ID}]} is the pdb files read in by PyRosetta to do inpainting. This file is needed to avoid doing any superposing. 
 * ${SLURM_ARRAY_TASK_ID} is just the index file number for the pkl file. 
-* 3. The last number (1 or 2 or 3) indicates the inpainting regions (h1, or h2, or h3).
-* The PyRosetta protocol saves all iterations and intermediate structures to subdirectories in outPath. The default name is test_single_cdr_inpaint_generations_single_h[123].   And the final minimized structure can be found under outPath as name b_n1_n2.pdb. n1 matching ${SLURM_ARRAY_TASK_ID}, which is the index inside the pickle files. n2 is just the index for the generated files.  
+* 3. The last number (1, 2, or 3) indicates the inpainting regions (h1,  h2, or h3).
+* The PyRosetta protocol saves all iterations and intermediate structures to subdirectories in outPath. The default name is test_single_cdr_inpaint_generations_single_h[123]. The final minimized structure can be found under the outPath with the name b_n1_n2.pdb. n1 matching ${SLURM_ARRAY_TASK_ID}, the index inside the pickle files, while n2 is just the index for the generated files
 
 
 
 ## Dataset 
 ---
-Raw antigen-antibody complex dataset for CDR condtional generations can be downloaded [here](https://opig.stats.ox.ac.uk/webapps/newsabdab/sabdab/archive/all/)
+Raw antigen-antibody complex dataset for CDR conditional generations can be downloaded [here](https://opig.stats.ox.ac.uk/webapps/newsabdab/sabdab/archive/all/)
 
-The 'sabdab_downloader.py' is also provided for downloading. 
 
+The 'sabdab_downloader.py' is also available for download.
 
 
 
 ### Reference
 ---
 Antibody-SGM (to be updated)
-
-
-# Saved weights 
-Saved weights could be access here: https://drive.google.com/drive/folders/1w1yPn3rYz04p9eejsr15bJN6K7kVzSAg?usp=sharing
-
