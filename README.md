@@ -113,7 +113,7 @@ python convert_6d_seq_to_pdb.py singlecdr_inpaint_h3_Jun_2024_fixed_padding/samp
 * samples_${SLURM_ARRAY_TASK_ID}.pkl is the 6d data generated with the previous shell script. 
 single_hv_example_pdb/${files[${SLURM_ARRAY_TASK_ID}]} is the pdb files read in by PyRosetta to do inpainting. This file is needed to avoid doing any superposing. 
 * ${SLURM_ARRAY_TASK_ID} is just the index file number for the pkl file. 
-* 3. The last number (1, 2, or 3) indicates the inpainting regions (h1,  h2, or h3).
+*  3. The last number (1, 2, or 3) indicates the inpainting regions (h1,  h2, or h3).
 * The PyRosetta protocol saves all iterations and intermediate structures to subdirectories in outPath. The default name is test_single_cdr_inpaint_generations_single_h[123]. The final minimized structure can be found under the outPath with the name b_n1_n2.pdb. n1 matching ${SLURM_ARRAY_TASK_ID}, the index inside the pickle files, while n2 is just the index for the generated files
 
 
